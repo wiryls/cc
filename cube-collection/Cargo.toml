@@ -1,18 +1,18 @@
 [package]
 edition = "2021"
 name = "cube-collection"
-version = "0.5.12"
+version = "0.5.13"
 
 [dependencies]
 # Local workspace
-cube-core = {path = "../cube-core"}
+cube-core = { path = "../cube-core" }
 
 # Bevy and its plugins
-bevy = "0.13"
+bevy = "0.13.2"
 bevy_prototype_lyon = "0.11"
 
 # Extra utilities
 anyhow = "1.0"
-serde = {version = "1.0", features = ["derive"]}
+serde = { version = "1.0", features = ["derive"] }
 snafu = "0.7"
 toml = "0.8"
