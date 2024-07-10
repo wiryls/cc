@@ -1,24 +1,25 @@
+use bevy::color::palettes::css;
 use bevy::prelude::*;
 use cube_core::cube::{Adjacence, Kind, Movement, Neighborhood, Point};
 
 pub const fn background_color() -> Color {
-    Color::WHITE
+    Color::Srgba(css::WHITE)
 }
 
 pub const fn floor_color() -> Color {
-    Color::DARK_GRAY
+    Color::srgb(0.2, 0.2, 0.2)
 }
 
 pub const fn destnation_color() -> Color {
-    Color::GRAY
+    Color::Srgba(css::GRAY)
 }
 
 pub const fn cube_color(kind: Kind) -> Color {
     match kind {
-        Kind::White /* **/ => Color::rgb(1.000, 1.000, 1.000),
-        Kind::Red /*   **/ => Color::rgb(0.988, 0.512, 0.512),
-        Kind::Blue /*  **/ => Color::rgb(0.582, 0.727, 0.945),
-        Kind::Green /* **/ => Color::rgb(0.533, 0.859, 0.425),
+        Kind::White /* **/ => Color::srgb(1.000, 1.000, 1.000),
+        Kind::Red /*   **/ => Color::srgb(0.988, 0.512, 0.512),
+        Kind::Blue /*  **/ => Color::srgb(0.582, 0.727, 0.945),
+        Kind::Green /* **/ => Color::srgb(0.533, 0.859, 0.425),
     }
 }
 

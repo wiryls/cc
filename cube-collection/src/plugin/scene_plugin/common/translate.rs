@@ -18,36 +18,17 @@ use super::{
 #[derive(Component, Debug)]
 pub struct TranslateColor {
     elapse: Timer,
-    source: (f32 /* H */, Vec2 /* (S, L) */),
-    target: (f32 /* H */, Vec2 /* (S, L) */),
+    source: Hsla,
+    target: Hsla,
 }
 
 impl TranslateColor {
     pub fn new(from: Kind, to: Kind, duration: Duration) -> Self {
         Self {
             elapse: Timer::new(duration, TimerMode::Repeating),
-            source: Self::from_kind_to_vec3(from),
-            target: Self::from_kind_to_vec3(to),
+            source: Hsla::from(style::cube_color(from)),
+            target: Hsla::from(style::cube_color(to)),
         }
-    }
-
-    fn from_kind_to_vec3(kind: Kind) -> (f32, Vec2) {
-        let [h, s, l, _] = style::cube_color(kind).as_hsla_f32();
-        (h, [s, l].into())
-    }
-
-    fn rotate_to(source: f32, target: f32, limit: f32, percent: f32) -> f32 {
-        let delta = target - source;
-        let step = delta.min(limit - delta);
-        let sign = (limit * 0.5 - delta).signum();
-        let mut output = source + sign * step * percent;
-        while output > limit {
-            output -= limit;
-        }
-        while output < 0. {
-            output += limit;
-        }
-        output
     }
 }
 
@@ -58,23 +39,21 @@ pub fn recolor_system(
 ) {
     let delta = time.delta();
     for (id, mut translate, mut draw) in &mut query {
-        let [h, s, l] = if translate.elapse.tick(delta).finished() {
+        let next = if translate.elapse.tick(delta).finished() {
             commands.entity(id).remove::<TranslateColor>();
-            let pair = translate.target;
-            [pair.0, pair.1.x, pair.1.y]
+            translate.target
         } else {
             let source = translate.source;
             let target = translate.target;
             let percent = translate.elapse.fraction();
-            let sl = source.1 + (target.1 - source.1) * percent;
-            let h = TranslateColor::rotate_to(source.0, target.0, 360., percent);
-            [h, sl.x, sl.y]
-        };
 
-        let target = Color::hsl(h, s, l);
-        draw.color.set_r(target.r());
-        draw.color.set_g(target.g());
-        draw.color.set_b(target.b());
+            let s = source.saturation.lerp(target.saturation, percent);
+            let l = source.lightness.lerp(target.lightness, percent);
+            let d = (target.hue - source.hue + 180.0).rem_euclid(360.0) - 180.0;
+            let h = (source.hue + d * percent).rem_euclid(360.0);
+            Hsla::hsl(h, s, l)
+        };
+        draw.color = Color::Srgba(Srgba::from(next))
     }
 }
 
@@ -241,6 +220,6 @@ pub fn realpha_system(mut query: Query<(&mut TranslateAlpha, &mut Fill)>, time: 
             from + (to - from) * percent
         };
 
-        draw.color.set_a(alpha);
+        draw.color.set_alpha(alpha);
     }
 }

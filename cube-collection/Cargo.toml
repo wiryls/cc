@@ -1,15 +1,15 @@
 [package]
 edition = "2021"
 name = "cube-collection"
-version = "0.5.13"
+version = "0.5.14"
 
 [dependencies]
 # Local workspace
 cube-core = { path = "../cube-core" }
 
 # Bevy and its plugins
-bevy = "0.13.2"
-bevy_prototype_lyon = "0.11"
+bevy = "0.14.0"
+bevy_prototype_lyon = "0.12"
 
 # Extra utilities
 anyhow = "1.0"
