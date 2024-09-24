@@ -8,7 +8,7 @@ version = "0.5.14"
 cube-core = { path = "../cube-core" }
 
 # Bevy and its plugins
-bevy = "0.14.0"
+bevy = "0.14.2"
 bevy_prototype_lyon = "0.12"
 
 # Extra utilities
