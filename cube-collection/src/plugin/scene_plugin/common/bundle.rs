@@ -51,12 +51,9 @@ pub fn hello_world(commands: &mut Commands, state: &World, mapper: &ViewMapper) 
     fn make_shape(points: &shapes::Polygon, translation: Vec3, scale: Vec3) -> ShapeBundle {
         ShapeBundle {
             path: GeometryBuilder::build_as(points),
-            spatial: SpatialBundle {
-                transform: Transform {
-                    translation,
-                    scale,
-                    ..default()
-                },
+            transform: Transform {
+                translation,
+                scale,
                 ..default()
             },
             ..default()

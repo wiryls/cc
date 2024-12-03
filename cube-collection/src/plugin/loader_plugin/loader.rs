@@ -29,11 +29,11 @@ impl AssetLoader for SeedsAssetLoader {
     type Error = anyhow::Error;
     type Settings = ();
 
-    async fn load<'a>(
-        &'a self,
-        reader: &'a mut Reader<'_>,
-        _: &'a Self::Settings,
-        load_context: &'a mut LoadContext<'_>,
+    async fn load(
+        &self,
+        reader: &mut dyn Reader,
+        _: &Self::Settings,
+        load_context: &mut LoadContext<'_>,
     ) -> Result<Self::Asset, Self::Error> {
         const LEVEL_MARK: &str = "map";
         const INDEX_MARK: &str = "name_list";
@@ -58,7 +58,7 @@ impl AssetLoader for SeedsAssetLoader {
                 for name in source.name_list {
                     let path = folder.join([&name, ".", &source.extension].concat());
                     let load: LoadedAsset<LevelSeeds> =
-                        load_context.loader().direct().load(path).await?;
+                        load_context.loader().immediate().load(path).await?;
                     output.0.append(&mut load.take().0);
                 }
                 return Ok(output);

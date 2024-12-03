@@ -14,13 +14,13 @@ pub fn setup(app: &mut App) {
             PreUpdate,
             hard_reset
                 .run_if(in_state(SceneState::Running))
-                .run_if(on_event::<HardReset>()),
+                .run_if(on_event::<HardReset>),
         )
         .add_systems(
             Update,
             loading_updated
                 .run_if(in_state(SceneState::Loading))
-                .run_if(on_event::<LevelLoadingUpdated>()),
+                .run_if(on_event::<LevelLoadingUpdated>),
         );
 }
 

@@ -5,7 +5,6 @@ use bevy_prototype_lyon::plugin;
 pub struct ShapePlugin;
 impl Plugin for ShapePlugin {
     fn build(&self, app: &mut App) {
-        app.insert_resource(Msaa::Sample4)
-            .add_plugins(plugin::ShapePlugin);
+        app.add_plugins(plugin::ShapePlugin);
     }
 }

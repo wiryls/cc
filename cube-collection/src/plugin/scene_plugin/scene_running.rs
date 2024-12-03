@@ -28,8 +28,8 @@ pub fn setup(app: &mut App) {
         .add_systems(
             PostUpdate,
             (
-                switch_world.run_if(on_event::<WorldChanged>()),
-                system::self_adaption.run_if(on_event::<ViewUpdated>()),
+                switch_world.run_if(on_event::<WorldChanged>),
+                system::self_adaption.run_if(on_event::<ViewUpdated>),
             ),
         );
 }

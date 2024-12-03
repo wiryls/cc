@@ -6,10 +6,7 @@ pub fn setup(app: &mut App) {
     app.init_resource::<GridView>()
         .add_event::<ViewUpdated>()
         .add_systems(Startup, setup_camera)
-        .add_systems(
-            PreUpdate,
-            update_gridview.run_if(on_event::<WindowResized>()),
-        );
+        .add_systems(PreUpdate, update_gridview.run_if(on_event::<WindowResized>));
 }
 
 #[derive(Event)]
@@ -26,7 +23,7 @@ pub struct ViewRect<T> {
 }
 
 fn setup_camera(mut commands: Commands) {
-    commands.spawn(Camera2dBundle::default());
+    commands.spawn(Camera2d::default());
 }
 
 fn update_gridview(

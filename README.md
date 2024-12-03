@@ -2,11 +2,11 @@
 
 # [Project Cube Collection](https://wiryls.github.io/cube-collection/)
 
-A dead simple puzzle game based on [Bevy Engine 0.14.2](https://github.com/bevyengine/bevy), move cubes to **cover all targets** as shown in the picture below.
+A dead simple puzzle game based on [Bevy Engine 0.15.0](https://github.com/bevyengine/bevy), move cubes to **cover all targets** as shown in the picture below.
 
 ![a-moth-to-flame](./docs/images/level-preview-a-moth-to-flame.gif)
 
-Try the online version at my [GitHub Pages](https://wiryls.github.io/cube-collection/)!
+Try the **online version** at my [GitHub Pages](https://wiryls.github.io/cube-collection/)!
 
 ## How to Play
 
